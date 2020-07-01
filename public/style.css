@@ -12,6 +12,63 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
+    background-color: #4281a4;
+}
+
+.rain-icon {
+    cursor: pointer;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 5%;
+    left: 95%;
+}
+
+.rain-icon:hover {
+    opacity: 0.8;
+    transition-duration: 300ms;
+    transition-timing-function: ease-in;
+}
+
+.thunder-icon {
+    cursor: pointer;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 5%;
+    left: 90%;
+}
+
+.thunder-icon:hover {
+    opacity: 0.8;
+    transition-duration: 300ms;
+    transition-timing-function: ease-in;
+}
+
+.wave-icon {
+    cursor: pointer;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 5%;
+    left: 85%;
+}
+
+.wave-icon:hover {
+    opacity: 0.8;
+    transition-duration: 300ms;
+    transition-timing-function: ease-in;
+}
+
+.background-layer {
+    position: absolute;
+    height: 60vh;
+    width: 100%;
+    background-color: #48a9a6;
+    z-index: -1;
+    top: 46%;
+    border-top: 2px solid #48a9a6;
 }
 
 .time-container {
@@ -19,9 +76,9 @@ body {
 }
 
 .time-container h1 {
-    color: black;
-    font-size: 7rem;
-    letter-spacing: 1rem;
+    color: white;
+    font-size: 8rem;
+    letter-spacing: 1.5rem;
     position: relative;
     text-shadow: 0px 15px 5px rgba(0, 0, 0, 0.1),
         10px 20px 5px rgba(0, 0, 0, 0.05), -10px 20px 5px rgba(0, 0, 0, 0.05);
@@ -34,18 +91,24 @@ body {
 }
 
 .btn {
+    cursor: pointer;
     font-size: 1.5rem;
+    font-weight: 550;
     margin: 0em 3em;
-    background-color: #454545;
+    background-color: #0a2342;
     color: white;
     padding: 10px 20px;
     border: none;
-    border-radius: 10px;
+    border-radius: 20px;
     outline: none;
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.09), 0 4px 2px rgba(0, 0, 0, 0.09),
+        0 8px 4px rgba(0, 0, 0, 0.09), 0 16px 8px rgba(0, 0, 0, 0.09),
+        0 32px 16px rgba(0, 0, 0, 0.09);
 }
 
 .btn:hover {
     opacity: 0.8;
-    transition-duration: 500ms;
-    transform: translateY(2px);
+    transition-duration: 300ms;
+    transition-timing-function: ease-in;
+    transform: translateY(3px);
 }
