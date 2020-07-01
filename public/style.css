@@ -16,6 +16,23 @@ body {
     background-color: #4281a4;
 }
 
+.clear {
+    clear: both;
+}
+
+.background-layer {
+    position: absolute;
+    z-index: -1;
+    background-color: #48a9a6;
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    top: 0%;
+    left: 0;
+    width: 100%;
+    height: 47%;
+}
+
 .rain-icon {
     cursor: pointer;
     position: absolute;
@@ -62,16 +79,6 @@ body {
     transition-duration: 300ms;
     transition-timing-function: ease-in;
     transform: translateY(3px);
-}
-
-.background-layer {
-    position: absolute;
-    height: 60vh;
-    width: 100%;
-    background-color: #48a9a6;
-    z-index: -1;
-    top: 46%;
-    border-top: 2px solid #48a9a6;
 }
 
 .time-container {

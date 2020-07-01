@@ -1,17 +1,13 @@
 const startButton = document.querySelector('.btn.start');
 const resetButton = document.querySelector('.btn.reset');
 
-var totalTime = 25 * 60;
-var breakTime = 10;
+var totalTime = 5;
+var breakTime;
 var minutes;
 var seconds;
 var timer;
-var intervals;
+var intervals = 0;
 var paused = true;
-
-// long braek after 4 intervals
-if (intervals == 4) {
-}
 
 startButton.addEventListener('click', () => {
     clearInterval(timer);
@@ -19,12 +15,10 @@ startButton.addEventListener('click', () => {
     if (paused) {
         paused = false;
         startButton.innerHTML = 'Pause';
-        console.log(startButton.innerHTML);
         startTimer();
     } else {
         paused = true;
         startButton.innerHTML = 'Start';
-        console.log(startButton.innerHTML);
         pauseTimer();
     }
 });
@@ -37,10 +31,14 @@ function startTimer() {
     minutes = Math.floor(totalTime / 60);
     seconds = totalTime - minutes * 60;
 
-    if (totalTime <= 0) {
-        clearInterval(timer);
+    console.log('working studying');
+
+    if (totalTime < 0) {
         intervals++;
-        totalTime = 25 * 60;
+        console.log(intervals);
+        totalTime = 5;
+        breakTime = 2;
+        breakTimer();
     }
 
     displayTime(minutes, seconds);
@@ -63,32 +61,47 @@ function resetTimer() {
     document.getElementById('time').innerHTML = `${minutes} : 0${seconds}`;
 }
 
-// function breakTimer() {
-//     timer = setInterval(breakTimer, 1000);
+function breakTimer() {
+    clearInterval(timer);
 
-//     minutes = Math.floor(breakTime / 60);
-//     seconds = breakTime - minutes * 60;
+    minutes = Math.floor(breakTime / 60);
+    seconds = breakTime - minutes * 60;
 
-//     if (breakTime <= 0) {
-//         clearInterval(timer);
-//         totalTime = 10 * 60;
-//         timer = setInterval(startTimer, 1000);
-//     }
+    if (intervals == 4) {
+        console.log('long break time');
+        intervals = 0;
 
-//     console.log(minutes, seconds);
+        var message = setTimeout(() => {
+            document.getElementById('time').innerHTML =
+                "<h6>It's time for a longer break</h6>";
+        }, 4000);
 
-//     displayTime();
+        clearTimeout(message);
 
-//     breakTime -= 1;
-// }
+        breakTime = 500;
+        timer = setInterval(breakTimer, 1000);
+    } else {
+        console.log('normal break time');
+        timer = setInterval(breakTimer, 1000);
+        if (breakTime <= 0) {
+            clearInterval(timer);
+            timer = setInterval(startTimer, 1000);
+            totalTime = 5;
+        }
+    }
+
+    displayTime(minutes, seconds);
+
+    breakTime -= 1;
+}
 
 function displayTime(minutes, seconds) {
-    if (seconds < 10) {
-        document.getElementById('time').innerHTML = `${minutes} : 0${seconds}`;
+    if (minutes < 10 && seconds < 10) {
+        document.getElementById('time').innerHTML = `0${minutes} : 0${seconds}`;
     } else if (minutes < 10) {
         document.getElementById('time').innerHTML = `0${minutes} : ${seconds}`;
-    } else if (minutes < 10 && seconds < 10) {
-        document.getElementById('time').innerHTML = `0${minutes} : 0${seconds}`;
+    } else if (seconds < 10) {
+        document.getElementById('time').innerHTML = `${minutes} : 0${seconds}`;
     } else {
         document.getElementById('time').innerHTML = `${minutes} : ${seconds}`;
     }
