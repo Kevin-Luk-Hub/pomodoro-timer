@@ -3,9 +3,9 @@ const startButton = document.querySelector('.btn.start');
 const resetButton = document.querySelector('.btn.reset');
 const rainIcon = document.querySelector('.rain-icon');
 const thunderIcon = document.querySelector('.thunder-icon');
-const waveIcon = document.querySelector('.wave-icon');
+const wavesIcon = document.querySelector('.waves-icon');
 
-let totalTime = 5;
+let totalTime = 25 * 60;
 let shortBreakTime;
 let longBreakTime;
 let minutes;
@@ -13,38 +13,87 @@ let seconds;
 let timer;
 let intervals = 0;
 let paused = true;
-let pauseSound = true;
 
-// triggers rain sounds
-rainIcon.addEventListener('click', () => {
-    let audio = document.createElement('audio');
-    audio.src = './sound/short-rain.mp3';
-    audio.volume = 0.6;
-    if (pauseSound) {
-        pauseSound = false;
-        audio.play();
-    } else {
-        pauseSound = true;
-        audio.pause();
-    }
-});
+// let allowSound = true;
 
-// triggers thunder sounds
-thunderIcon.addEventListener('click', () => {
-    let audio = document.createElement('audio');
-    audio.src = './sound/Loud-thunder-sound.mp3';
-    audio.volume = 0.6;
-    audio.play();
-});
+// const SOUNDS = {
+//     rain: null,
+//     thunder: null,
+//     waves: null,
+// };
 
-waveIcon.addEventListener('click', () => {
-    let audio = document.createElement('audio');
-    audio.src = './sound/waves-crashing.mp3';
-    audio.volume = 0.6;
-    audio.play();
-});
+// rainIcon.addEventListener('click', play);
+// thunderIcon.addEventListener('click', play);
+// wavesIcon.addEventListener('click', play);
 
-// triggers wave sounds
+// function play(e) {
+//     let p = e.currentTarget;
+//     e.preventDefault();
+
+//     let fileName = p.getAttribute('data-file');
+//     let src = './sound/' + fileName + '.mp3';
+//     if (SOUNDS[fileName]) {
+//         SOUNDS[fileName].pause();
+//         SOUNDS[fileName] = null;
+//     }
+//     console.log(src);
+
+//     let audio = document.createElement('audio');
+
+//     audio.src = src;
+//     audio.volume = 0.2;
+
+//     if (allowSound) {
+//         SOUNDS[fileName] = audio;
+//         audio.setAttribute('data-file', fileName);
+//         audio.play();
+//     }
+
+//     audio.addEventListener('playing', goAudio);
+//     audio.addEventListener('ended', doneAudio);
+// }
+
+// function goAudio(e) {
+//     console.log(e.target.src, 'has started playing');
+// }
+
+// function doneAudio(e) {
+//     console.log(e.target.src, 'has finished playing');
+//     let fileName = e.target.getAttribute('data-file');
+//     SOUNDS[fileName] = null;
+// }
+
+// // triggers rain sounds
+// rainIcon.addEventListener('click', () => {
+//     let audio = document.getElementById('a');
+//     audio.src = './sound/rain.mp3';
+//     audio.volume = 0.6;
+//     if (pauseSound) {
+//         pauseSound = false;
+//         audio.play();
+//     } else {
+//         pauseSound = true;
+//         audio.pause();
+//     }
+// });
+
+// // triggers thunder sounds
+// thunderIcon.addEventListener('click', () => {
+//     let audio = document.createElement('audio');
+//     audio.src = './sound/thunder.mp3';
+//     audio.volume = 0.6;
+//     audio.play();
+// });
+
+// // triggers wave sounds
+// wavesIcon.addEventListener('click', () => {
+//     let audio = document.createElement('audio');
+//     audio.src = './sound/waves.mp3';
+//     audio.volume = 0.6;
+//     audio.play();
+// });
+
+// begins the timer
 startButton.addEventListener('click', () => {
     clearInterval(timer);
     timer = setInterval(startTimer, 1000);
@@ -71,9 +120,9 @@ function startTimer() {
 
     if (totalTime < 0) {
         intervals++;
-        totalTime = 5;
-        shortBreakTime = 2;
-        longBreakTime = 10;
+        totalTime = 25 * 60;
+        shortBreakTime = 10 * 60;
+        longBreakTime = 15 * 60;
 
         if (intervals == 4) {
             intervals = 0;
@@ -102,7 +151,7 @@ function resetTimer() {
     clearInterval(timer);
     paused = true;
     startButton.innerHTML = 'Start';
-    totalTime = 5;
+    totalTime = 25 * 60;
     minutes = Math.floor(totalTime / 60);
     seconds = totalTime - minutes * 60;
     displayTime(minutes, seconds);
@@ -120,7 +169,7 @@ function shortBreakTimer() {
     if (shortBreakTime <= 0) {
         clearInterval(timer);
         timer = setInterval(startTimer, 1000);
-        totalTime = 5;
+        totalTime = 25 * 60;
     }
 
     displayTime(minutes, seconds);
@@ -140,7 +189,7 @@ function longBreakTimer() {
     if (longBreakTime <= 0) {
         clearInterval(timer);
         timer = setInterval(startTimer, 1000);
-        totalTime = 5;
+        totalTime = 25 * 60;
     }
 
     displayTime(minutes, seconds);
@@ -169,7 +218,7 @@ function shortAlert() {
     audio.play();
 }
 
-// a;ert sound used when a long break begins
+// alert sound used when a long break begins
 function longAlert() {
     let audio = document.createElement('audio');
     audio.src = './sound/long-notification.mp3';

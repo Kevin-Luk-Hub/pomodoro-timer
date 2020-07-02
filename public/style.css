@@ -9,7 +9,7 @@
 body {
     font-family: 'Saira Condensed', sans-serif;
     /* position: relative; */
-    background-color: #251f47;
+    background-color: rgba(37, 31, 71, 0.95);
 }
 
 .clear {
@@ -17,7 +17,7 @@ body {
 }
 
 .main-container {
-    margin: auto;
+    margin: 3em auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -33,7 +33,7 @@ body {
         10px 20px 5px rgba(0, 0, 0, 0.05), -10px 20px 5px rgba(0, 0, 0, 0.05);
 }
 
-.icon-container {
+/* .icon-container {
     margin: 5em auto;
     display: flex;
     text-align: center;
@@ -42,7 +42,7 @@ body {
 
 .rain-icon,
 .thunder-icon,
-.wave-icon {
+.waves-icon {
     cursor: pointer;
     width: 50px;
     height: 50px;
@@ -62,12 +62,12 @@ body {
     transform: translateY(3px);
 }
 
-.wave-icon:hover {
+.waves-icon:hover {
     opacity: 0.8;
     transition-duration: 300ms;
     transition-timing-function: ease-in;
     transform: translateY(3px);
-}
+} */
 
 .time-container {
     text-align: center;
