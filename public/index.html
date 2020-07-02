@@ -3,6 +3,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="style.css" />
+        <link rel="icon" href="./img/favicon-16x16.png" type="image/gif" />
         <title>Pomodoro</title>
     </head>
     <body>
@@ -11,14 +12,24 @@
             <img src="./img/thunder.svg" alt="" class="thunder-icon" />
             <img src="./img/wave.svg" alt="" class="wave-icon" />
         </div>
-        <div class="clear"></div>
-        <div class="background-layer"></div>
-        <div class="time-container">
-            <h1 id="time">-- : --</h1>
-            <div class="button-container">
-                <button class="btn start">Start</button>
-                <button class="btn reset">Reset</button>
+        <div class="main-container">
+            <h1 id="message">Pomodoro Timer</h1>
+            <div class="time-container">
+                <h1 id="time">-- : --</h1>
+                <div class="button-container">
+                    <button class="btn start">Start</button>
+                    <button class="btn reset">Reset</button>
+                </div>
             </div>
+        </div>
+        <div class="info-container">
+            <h1>What is the Pomodoro Technique?</h1>
+            <p>
+                The Pomodoro technique is a system of time management with a
+                simple methodology: when faced with any large task or series of
+                tasks, divide the work into short, timed intervals that are
+                spaced out by short breaks.
+            </p>
         </div>
         <script src="app.js"></script>
     </body>

@@ -1,14 +1,50 @@
+// HTML elements
 const startButton = document.querySelector('.btn.start');
 const resetButton = document.querySelector('.btn.reset');
+const rainIcon = document.querySelector('.rain-icon');
+const thunderIcon = document.querySelector('.thunder-icon');
+const waveIcon = document.querySelector('.wave-icon');
 
-var totalTime = 5;
-var breakTime;
-var minutes;
-var seconds;
-var timer;
-var intervals = 0;
-var paused = true;
+let totalTime = 5;
+let shortBreakTime;
+let longBreakTime;
+let minutes;
+let seconds;
+let timer;
+let intervals = 0;
+let paused = true;
+let pauseSound = true;
 
+// triggers rain sounds
+rainIcon.addEventListener('click', () => {
+    let audio = document.createElement('audio');
+    audio.src = './sound/short-rain.mp3';
+    audio.volume = 0.6;
+    if (pauseSound) {
+        pauseSound = false;
+        audio.play();
+    } else {
+        pauseSound = true;
+        audio.pause();
+    }
+});
+
+// triggers thunder sounds
+thunderIcon.addEventListener('click', () => {
+    let audio = document.createElement('audio');
+    audio.src = './sound/Loud-thunder-sound.mp3';
+    audio.volume = 0.6;
+    audio.play();
+});
+
+waveIcon.addEventListener('click', () => {
+    let audio = document.createElement('audio');
+    audio.src = './sound/waves-crashing.mp3';
+    audio.volume = 0.6;
+    audio.play();
+});
+
+// triggers wave sounds
 startButton.addEventListener('click', () => {
     clearInterval(timer);
     timer = setInterval(startTimer, 1000);
@@ -23,22 +59,31 @@ startButton.addEventListener('click', () => {
     }
 });
 
+// reset the current time
 resetButton.addEventListener('click', () => {
     resetTimer();
 });
 
+// initiates the timer countdown
 function startTimer() {
     minutes = Math.floor(totalTime / 60);
     seconds = totalTime - minutes * 60;
 
-    console.log('working studying');
-
     if (totalTime < 0) {
         intervals++;
-        console.log(intervals);
         totalTime = 5;
-        breakTime = 2;
-        breakTimer();
+        shortBreakTime = 2;
+        longBreakTime = 10;
+
+        if (intervals == 4) {
+            intervals = 0;
+            clearInterval(timer);
+            longBreakTimer();
+            longAlert();
+        } else {
+            shortBreakTimer();
+            shortAlert();
+        }
     }
 
     displayTime(minutes, seconds);
@@ -46,55 +91,64 @@ function startTimer() {
     totalTime--;
 }
 
+// pause the timer at current time
 function pauseTimer() {
     clearInterval(timer);
     displayTime(minutes, seconds);
 }
 
+// reset the timer to 25 minutes
 function resetTimer() {
     clearInterval(timer);
     paused = true;
     startButton.innerHTML = 'Start';
-    totalTime = 25 * 60;
+    totalTime = 5;
     minutes = Math.floor(totalTime / 60);
     seconds = totalTime - minutes * 60;
-    document.getElementById('time').innerHTML = `${minutes} : 0${seconds}`;
+    displayTime(minutes, seconds);
 }
 
-function breakTimer() {
+// initiates countdown for a short break
+function shortBreakTimer() {
     clearInterval(timer);
 
-    minutes = Math.floor(breakTime / 60);
-    seconds = breakTime - minutes * 60;
+    minutes = Math.floor(shortBreakTime / 60);
+    seconds = shortBreakTime - minutes * 60;
 
-    if (intervals == 4) {
-        console.log('long break time');
-        intervals = 0;
+    timer = setInterval(shortBreakTimer, 1000);
 
-        var message = setTimeout(() => {
-            document.getElementById('time').innerHTML =
-                "<h6>It's time for a longer break</h6>";
-        }, 4000);
-
-        clearTimeout(message);
-
-        breakTime = 500;
-        timer = setInterval(breakTimer, 1000);
-    } else {
-        console.log('normal break time');
-        timer = setInterval(breakTimer, 1000);
-        if (breakTime <= 0) {
-            clearInterval(timer);
-            timer = setInterval(startTimer, 1000);
-            totalTime = 5;
-        }
+    if (shortBreakTime <= 0) {
+        clearInterval(timer);
+        timer = setInterval(startTimer, 1000);
+        totalTime = 5;
     }
 
     displayTime(minutes, seconds);
 
-    breakTime -= 1;
+    shortBreakTime -= 1;
 }
 
+// initiates countdown for a long break
+function longBreakTimer() {
+    clearInterval(timer);
+
+    minutes = Math.floor(longBreakTime / 60);
+    seconds = longBreakTime - minutes * 60;
+
+    timer = setInterval(longBreakTimer, 1000);
+
+    if (longBreakTime <= 0) {
+        clearInterval(timer);
+        timer = setInterval(startTimer, 1000);
+        totalTime = 5;
+    }
+
+    displayTime(minutes, seconds);
+
+    longBreakTime -= 1;
+}
+
+// function used to display and format time
 function displayTime(minutes, seconds) {
     if (minutes < 10 && seconds < 10) {
         document.getElementById('time').innerHTML = `0${minutes} : 0${seconds}`;
@@ -107,6 +161,18 @@ function displayTime(minutes, seconds) {
     }
 }
 
-function rainSound() {
-    var audio = new Audio('.');
+// alert sound used when a short break begins
+function shortAlert() {
+    let audio = document.createElement('audio');
+    audio.src = './sound/definite.mp3';
+    audio.volume = 0.5;
+    audio.play();
+}
+
+// a;ert sound used when a long break begins
+function longAlert() {
+    let audio = document.createElement('audio');
+    audio.src = './sound/long-notification.mp3';
+    audio.volume = 0.5;
+    audio.play();
 }
