@@ -6,15 +6,39 @@
     box-sizing: border-box;
 }
 
+@keyframes transitionIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@-webkit-keyframes transitionIn {
+    from {
+        opacity: 0;
+        -webkit-transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+    }
+}
+
 body {
     font-family: 'Saira Condensed', sans-serif;
     /* position: relative; */
     background-color: rgba(37, 31, 71, 0.95);
+    -webkit-animation: transitionin 0.9s;
+    animation: transitionIn 0.9s;
 }
 
-.clear {
+/* .clear {
     clear: both;
-}
+} */
 
 .main-container {
     margin: 3em auto;
